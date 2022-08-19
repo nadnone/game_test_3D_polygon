@@ -37,12 +37,13 @@
 
 | First shader | Specular shading |
 | ----------------- | -------------------- |
-| <img height="300" width="300" src="./res/cube_first.gif"> | <img height="300" width="300" src="./res/cube_specular.gif"> |
+| <img height="300" width="300" src="./demos/cube_first.gif"> | <img height="300" width="300" src="./demos/cube_specular.gif"> |
 
 | Airplane failed test | Airplane test success |
 | --------------------- | ---------------- |
-| <img height="300" width="300" src="./res/airplane.gif"> | <img height="300" width="300" src="./res/airplane_success.gif"> |
+| <img height="300" width="300" src="./demos/airplane.gif"> | <img height="300" width="300" src="./demos/airplane_success.gif"> |
 
-| Failed texture mapping | 
-| ---------------------- |
-| <img height="300" width="300" src="./res/failed_texture.gif"> |
+| Failed texture mapping | Two cubes ! |
+| ---------------------- | ----------- |
+| <img height="300" width="300" src="./demos/failed_texture.gif"> | <img height="300" width="300" src="./demos/two_cubes.gif"> |
+| i need to learn more abour it | 
