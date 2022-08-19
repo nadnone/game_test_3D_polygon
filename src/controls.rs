@@ -16,7 +16,11 @@ impl EventControls {
         };
     }
 
-
+    /*
+        TODO REVOIR LA MATRICE DES OBJECTS
+        
+        [X,Y,Z, Tx, Ty, Tz] = T = translation
+    */
     pub fn controls(&mut self, objects: &mut Vec<(Vec<[f32; 3]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32)))> , event_pump: &mut EventPump)
     {
         // si il n'y pas d'event, osef
