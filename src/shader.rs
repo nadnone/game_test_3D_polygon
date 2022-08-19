@@ -9,7 +9,7 @@ pub fn shader_phong(normals: &Vec<[f32; 3]>, v0: [f32; 3], phong_data: &(Vec<[f3
     
     let light_dir = normaliser(
         scalair(
-             soustraction_vectors([0.0, 400.0, -50.0], v0)
+             soustraction_vectors([0.0, 400.0, -400.0], v0)
              , -1.0)
     
     );

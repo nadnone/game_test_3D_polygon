@@ -51,7 +51,7 @@ pub fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_co
         cube_0.0 = translate(&cube_0.0, [400., 0., 0.]);
 
 
-        cube_1.0 = rotate(&cube_1.1, i * 3.1415 / 180.0, 'y');
+        cube_1.0 = rotate(&cube_1.1, i * 3.1415 / 180.0, 'x');
         cube_1.0 = rotate(&cube_1.0, i * 3.1415 / 180.0, 'z');
         cube_1.0 = translate(&cube_1.0, [-400., 0., 0.]);
 
