@@ -5,15 +5,15 @@ pub struct Rasterizer;
 
 impl Rasterizer {
 
-    pub fn draw(vertices: &Vec<[f32; 3]>, data: &(Vec<[f32; 3]>, (Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32))) -> (Vec<[f32; 3]>, Vec<[u8;3]>)
+    pub fn draw(data: &(Vec<[f32; 3]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32)))) -> (Vec<[f32; 3]>, Vec<[u8; 3]>)
     {
         let mut m_out: (Vec<[f32; 3]>, Vec<[u8; 3]>) = (Vec::new(), Vec::new());
 
 
 
-        let m = vertices;
-        let normals = &data.0;
-        let phong_data = &data.1;
+        let m = &data.0;
+        let normals = &data.1.0;
+        let phong_data = &data.1.1;
 
         for i in (0..m.len()).step_by(3) {
             
@@ -46,6 +46,8 @@ impl Rasterizer {
 
                         m_out.0.push([px as f32, py as f32, v0[2]]);
                         m_out.1.push(rgb_phong);
+
+
                     }
       
                 }
@@ -56,6 +58,7 @@ impl Rasterizer {
         }
 
         return m_out;
+
     }
 
     fn _is_in_triangle(p: [f32; 3], a: [f32; 3], b: [f32; 3], c: [f32; 3]) -> bool

@@ -6,7 +6,13 @@ use sdl2::video::Window;
 pub fn projection(m: Vec<(Vec<[f32; 3]>, Vec<[u8; 3]>)>, canvas: &mut Canvas<Window>)
 {
 
+
+
+
+    let z_far = 100.0;
+    let z_near = 1.0;
     let f: f32 = (FOV/2.0).tan() / 2.0;
+    let lambda: f32 = z_far / (z_far - z_near); // Z_FAR / (Z_FAR - Z_NEAR)
 
 
     for objet in m {
@@ -24,7 +30,7 @@ pub fn projection(m: Vec<(Vec<[f32; 3]>, Vec<[u8; 3]>)>, canvas: &mut Canvas<Win
     
             let x = (HEIGHT/WIDTH) * f * x0;
             let y = f * y0;
-            let _z = LAMBDA * (z0 - 1.0); // 1.0 = Z_NEAR
+            let _z = lambda * (z0 - 1.0); // 1.0 = Z_NEAR
     
             
             

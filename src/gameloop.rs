@@ -2,6 +2,7 @@ use sdl2::EventPump;
 use sdl2::render::Canvas;
 use sdl2::video::Window;
 
+use crate::controls::EventControls;
 use crate::maths_vectors_helper::scalair;
 use crate::transformations::{rotate, translate};
 use crate::wavefront_parser;
@@ -12,17 +13,18 @@ pub fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_co
 {
 
 
-    let (cube0, data_cube0) = wavefront_parser::load("./assets/cube.obj");
-    let (cube1, data_cube1) = wavefront_parser::load("./assets/cube.obj");
+    let cube1 = wavefront_parser::load("./assets/plane_animation.obj");
+    let cube2 = wavefront_parser::load("./assets/cube.obj");
 
 
     let mut i = 0.0;
+    let mut player_event = EventControls::init(0.0, 0.0, 0.0);
 
 
     loop 
     {
-        let mut cube_0: (Vec<[f32; 3]>, Vec<[f32; 3]>) = (cube0.clone(), cube0.clone());
-        let mut cube_1: (Vec<[f32; 3]>, Vec<[f32; 3]>) = (cube1.clone(), cube1.clone());
+    
+        let mut projection_data = Vec::new();
 
 
         canvas.set_draw_color(sdl2::pixels::Color::RGB(0, 0, 0));
@@ -31,42 +33,44 @@ pub fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_co
 
 
 
-        // lecture des events
-        event_pump.poll_event();
-
+        // encapsulation
+        let mut objects = Vec::new();
+        objects.push( cube1.clone() );
+        objects.push( cube2.clone() );
 
 
         // transformations
-
-        for i in 0..cube_0.1.len() {
-
-            cube_0.1[i] = scalair(cube_0.1[i], 150.0);
-            cube_1.1[i] = scalair(cube_1.1[i], 150.0);
+        for j  in 0..objects.len() {
             
-        }
 
+            for i in 0..objects[j].0.len() {
 
-        cube_0.0 = rotate(&cube_0.1, i * PI / 180.0, 'y');
-        cube_0.0 = rotate(&cube_0.0, i * PI / 180.0, 'z');
-        cube_0.0 = translate(&cube_0.0, [400., 0., 0.]);
-
-
-        cube_1.0 = rotate(&cube_1.1, i * PI / 180.0, 'x');
-        cube_1.0 = rotate(&cube_1.0, i * PI / 180.0, 'z');
-        cube_1.0 = translate(&cube_1.0, [-400., 0., 0.]);
-
-
-
-
-        // colorisations
-        let mut cubes = Vec::new();
-        cubes.push( Rasterizer::draw(&cube_0.0, &data_cube0) );
-        cubes.push( Rasterizer::draw(&cube_1.0, &data_cube1) );
-
+                objects[j].0[i] = scalair(objects[j].0[i], 150.0);
+                
+            }
     
+            objects[j].0 = rotate(&objects[j].0, i * PI / 180.0, 'x');
+            objects[j].0 = rotate(&objects[j].0, i * PI / 180.0, 'z');
+            objects[j].0 = translate(&objects[j].0, [-400., 0., 0.]);
+    
+            
+    
+    
+            // lecture des events
+            player_event.controls(&mut objects, event_pump);
+            
+
+
+
+            projection_data.push(  Rasterizer::draw(&objects[j]) );
+
+
+        }
+       
+
 
         // projection
-        projection(cubes, canvas);
+        projection(projection_data, canvas);
 
 
 
