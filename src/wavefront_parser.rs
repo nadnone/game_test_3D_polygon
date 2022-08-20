@@ -3,9 +3,9 @@ use regex::Regex;
 
 /// la fonction retourne:
 /// ```
-/// (triangle, (normals, (ambiants, diffuse, specular, specular_exponent)))
+/// (triangle, normals, colors)
 /// ```
-pub fn load(filename: &str) -> (Vec<[f32; 6]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32)))
+pub fn load(filename: &str) -> (Vec<[f32; 6]>, Vec<[f32; 3]>, Vec<[f32; 3]>)
 {
 
     let mut data = fs::read_to_string(filename).unwrap();
@@ -177,6 +177,7 @@ pub fn load(filename: &str) -> (Vec<[f32; 6]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, V
 
 
     // take the first material ambiant
+    /*
     re = Regex::new(r"newmtl\s(\w+)\n.*\nKa\s([0-9\.]+)\s([0-9\.]+)\s([0-9\.]+)\s").unwrap();
 
     let mut ambiants: Vec<[f32; 3]> = Vec::new();
@@ -192,7 +193,7 @@ pub fn load(filename: &str) -> (Vec<[f32; 6]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, V
 
 
     }
-
+*/
     // take the first material diffuse
     re = Regex::new(r"newmtl\s(\w+)\n.*\n.*\nKd\s([0-9\.]+)\s([0-9\.]+)\s([0-9\.]+)\s").unwrap();
 
@@ -213,6 +214,7 @@ pub fn load(filename: &str) -> (Vec<[f32; 6]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, V
     
 
     // the specular exponent and the mtl file
+    /*
     re_1 = Regex::new(r"Ns\s([0-9\.]+)").unwrap().find(str).unwrap();
     let string_stuff = &data[re_1.start()+3..re_1.end()];
     let specular_exponent: f32 = string_stuff.to_string().parse().unwrap();
@@ -235,7 +237,7 @@ pub fn load(filename: &str) -> (Vec<[f32; 6]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, V
 
 
     }
-
+    */
 
     /*
     // the image texture in the mtl file
@@ -255,6 +257,6 @@ pub fn load(filename: &str) -> (Vec<[f32; 6]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, V
     }
     */
 
-    return (triangles, (normals, (ambiants, diffuse, specular, specular_exponent)));
+    return (triangles, normals, diffuse);
 
 }

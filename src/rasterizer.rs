@@ -1,13 +1,13 @@
 use sdl2::render::Canvas;
 use sdl2::video::Window;
 
-use crate::{constants::{WIDTH_LOGIC, HEIGHT_LOGIC}, shader, controls::EventControls};
+use crate::{constants::{WIDTH_LOGIC, HEIGHT_LOGIC}, pseudo_shader, controls::EventControls};
 pub struct Rasterizer;
 
 
 impl Rasterizer {
 
-    pub fn draw(data: &Vec<[f32; 6]>, normals: &Vec<[f32; 3]>, phong_data: &(Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32), canvas: &mut Canvas<Window>, player_event: &EventControls)
+    pub fn draw(data: &Vec<[f32; 6]>, normals: &Vec<[f32; 3]>, colors_data: &Vec<[f32; 3]>, canvas: &mut Canvas<Window>, player_event: &EventControls)
     {
 
         for i in (0..data.len()).step_by(3) {
@@ -44,7 +44,7 @@ impl Rasterizer {
                     // check if pixel is inside triangle
                     if Self::_is_in_triangle(p, v0, v1, v2) 
                     {
-                        let rgb = shader::shader(player_event, &normals, p, &phong_data, i);
+                        let rgb = pseudo_shader::shader(player_event, &normals, p, &colors_data, i);
 
                         canvas.set_draw_color(sdl2::pixels::Color::RGB(rgb[0], rgb[1], rgb[2]));
                         canvas.draw_point(sdl2::rect::Point::new((px as f32 + WIDTH_LOGIC as f32 / 2.) as i32, (py as f32 + HEIGHT_LOGIC as f32 / 2.) as i32)).unwrap();

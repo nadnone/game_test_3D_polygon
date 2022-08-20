@@ -9,7 +9,7 @@
 - [x] Drawing a cube
 - [x] Load Wavefront files
     - [ ] ~~Loading all data~~
-    - [x] Ambient, diffuse, diffuse
+    - [x] Ambient, diffuse, specular
     - [x] Vertices
     - [x] Normals
     - [ ] ~~Textures~~
@@ -18,13 +18,16 @@
         - [ ] ~~Understand how to match both~~
 
 - [ ] Load gltf/gltb files
+    - [x] ~~use easy_gltb~~
+    - [ ] use an other lib that support animations
+
 - [x] Understand the translation transformation
 - [x] Make rotations
 
-- [ ] Shading
-    - [ ] Enhance my shader
-        - [x] diffuse shader
-        - [ ] Specular shader
+- [ ] Lightning
+    - [ ] Enhance my lightning
+        - [x] diffuse 
+        - [ ] Specular
     - [x] ~~Textures~~
         - [x] Draw texture on cube
         - [ ] ~~Draw it correctly~~

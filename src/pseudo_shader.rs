@@ -1,6 +1,6 @@
 use crate::{maths_vectors_helper::*, controls::EventControls};
 
-pub fn shader(player_event: &EventControls, normals: &Vec<[f32; 3]>, v0: [f32; 3], color_data: &(Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32), i: usize) -> [u8; 3]
+pub fn shader(player_event: &EventControls, normals: &Vec<[f32; 3]>, v0: [f32; 3], color_data: &Vec<[f32; 3]>, i: usize) -> [u8; 3]
 {
 
     let cam_pos = normaliser(player_event.get_pos_camera());
@@ -14,10 +14,10 @@ pub fn shader(player_event: &EventControls, normals: &Vec<[f32; 3]>, v0: [f32; 3
 
     // Lambert diffuse model
     let intensity = produit_scalair(norm, light_pos); // N * L
-    let diffuse = scalair(color_data.1[0], intensity);
+    let diffuse = scalair(color_data[i], intensity);
 
 
-    // TODO specular 
+    // TODO specular (or not)
 
     let total = diffuse;
 

@@ -4,7 +4,7 @@ use crate::controls::EventControls;
 
 /// ```
 /// data: (points, (normals, phon_data)), 
-pub fn projection(data: &mut (Vec<[f32; 6]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32))), player_event: &EventControls)
+pub fn projection(data: &mut (Vec<[f32; 6]>, Vec<[f32; 3]>, Vec<[f32; 3]>), player_event: &EventControls)
 {
 
 

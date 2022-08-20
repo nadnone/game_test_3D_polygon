@@ -2,12 +2,13 @@
 mod constants;
 mod gameloop;
 mod rasterizer;
-mod  maths_vectors_helper;
+mod maths_vectors_helper;
 mod projection;
 mod wavefront_parser;
-mod shader;
+mod pseudo_shader;
 mod transformations;
 mod controls;
+mod gltf_file_loader;
 
 use crate::{gameloop::gameloop, constants::*};
 
