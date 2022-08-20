@@ -14,7 +14,7 @@ pub fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_co
     let mut i = 0.0;
     let mut player_event = EventControls::init(0.0, 0.0, 100.0);
 
-    let objet_data = GLTFLoader::load("./assets/red_cube.glb");
+    let objet_data = GLTFLoader::load("./assets/Anime_charcter.glb");
     
     loop 
     {
@@ -35,19 +35,16 @@ pub fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_co
 
         // transformations
 
-        objects[0].0 = scale(&objects[0].0, 150.0);
+        objects[0].0 = scale(&objects[0].0, 80.0);
         
       
-        //objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'x');
-        //objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'z');
-
 
         //objects[0].0 = reset_translation(&objects[0].0);
 
-        objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'x');
-        objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'z');
+        //objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'y');
+        objects[0].0 = rotate(&objects[0].0, -i * PI / 180.0, 'z');
 
-        objects[0].0 = translate(&objects[0].0, [-400., 0., 0.]);
+        //objects[0].0 = translate(&objects[0].0, [-400., 0., 0.]);
         
 
 

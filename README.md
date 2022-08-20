@@ -20,6 +20,7 @@
 - [ ] Load gltf/gltb files
     - [x] ~~use easy_gltb~~
     - [ ] use an other lib that support animations
+    - [ ] understand animations
 
 - [x] Understand the translation transformation
 - [x] Make rotations
