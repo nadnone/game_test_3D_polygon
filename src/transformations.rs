@@ -1,4 +1,6 @@
-pub fn rotate(a: &Vec<[f32; 3]>, angle: f32, axe: char) -> Vec<[f32; 3]>
+use crate::maths_vectors_helper::multiply_vectors;
+
+pub fn rotate(a: &Vec<[f32; 6]>, angle: f32, axe: char) -> Vec<[f32; 6]>
 {
 
     let cos = angle.cos();
@@ -31,67 +33,105 @@ pub fn rotate(a: &Vec<[f32; 3]>, angle: f32, axe: char) -> Vec<[f32; 3]>
         ];
     }
 
+
+
+
     let mut m_out = Vec::new();
 
     for p in (0..a.len()).step_by(3) {
 
 
 
-        let kernel = [a[p], a[p+1], a[p+2]];
-
-        
-        let mut res: [[f32; 3]; 3] = [
+        let mut kernel: [[f32; 3]; 3] = [
             [0.0, 0.0, 0.0],
             [0.0, 0.0, 0.0],
-            [0.0, 0.0, 0.0]
+            [0.0, 0.0, 0.0],
         ];
 
+        for i in 0..3
+        {
+            kernel[0][i] = a[p + 0][i];
+            kernel[1][i] = a[p + 1][i];
+            kernel[2][i] = a[p + 2][i];
+        }
         
+        let res = multiply_vectors(kernel, matrix_rot);
+
+
+
         for i in 0..3 {
 
-            for j in 0..3 {
-                
-                for k in 0..3 {
-
-                    res[i][j] += kernel[i][k] * matrix_rot[k][j];
-
-                }
-
-            }
+            m_out.push(
+                [
+                    res[i][0], 
+                    res[i][1], 
+                    res[i][2],
+                    a[p + i][3], 
+                    a[p + i][4], 
+                    a[p + i][5]
+                ]
+            );
 
         }
-
-        m_out.push(res[0]);
-        m_out.push(res[1]);
-        m_out.push(res[2]);
+       
     }   
 
-   
 
     return m_out;
 }
 
 
-pub fn translate(a: &Vec<[f32; 3]>, translation: [f32; 3]) -> Vec<[f32; 3]>
+pub fn translate(a: &Vec<[f32; 6]>, translation: [f32; 3]) -> Vec<[f32; 6]>
 {
 
 
-    let mut m_out = Vec::new();
+    let mut m_out = a.clone();
 
     for p in 0..a.len() {
 
-
-        let r0 = a[p][0] + translation[0];
-        let r1 = a[p][1] + translation[1];
-        let r2 = a[p][2] + translation[2];
-
-
-        m_out.push([r0, r1, r2]);
+        m_out[p][0] = a[p][0] + translation[0];
+        m_out[p][1] = a[p][1] + translation[1];
+        m_out[p][2] = a[p][2] + translation[2];
 
        
     }   
 
-   
+    return m_out;
+}
+
+pub fn reset_translation(a: &Vec<[f32; 6]>) -> Vec<[f32; 6]>
+{
+
+
+    let mut m_out = a.clone();
+
+    for p in 0..a.len() {
+
+        m_out[p][0] = a[p][3];
+        m_out[p][1] = a[p][4];
+        m_out[p][2] = a[p][5];
+
+       
+    }   
+
+    return m_out;
+}
+
+
+
+pub fn scale(a: &Vec<[f32; 6]>, factor: f32) -> Vec<[f32; 6]>
+{
+    let mut m_out = a.clone();
+
+    for i in 0..a.len() {
+
+        for j in 0..a[i].len() {
+            
+            m_out[i][j] = a[i][j] * factor;
+
+        }
+        
+    }
 
     return m_out;
 }

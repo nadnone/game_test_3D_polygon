@@ -3,8 +3,7 @@ use sdl2::render::Canvas;
 use sdl2::video::Window;
 
 use crate::controls::EventControls;
-use crate::maths_vectors_helper::scalair;
-use crate::transformations::{rotate, translate};
+use crate::transformations::{rotate, translate, scale, reset_translation};
 use crate::wavefront_parser;
 use crate::{constants::*, rasterizer::Rasterizer};
 use crate::projection::projection;
@@ -18,13 +17,19 @@ pub fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_co
 
 
     let mut i = 0.0;
-    let mut player_event = EventControls::init(0.0, 0.0, 0.0);
+    let mut player_event = EventControls::init(0.0, 0.0, 100.0);
 
 
+    
+    
     loop 
     {
     
-        let mut projection_data = Vec::new();
+        // encapsulation
+        let mut objects = Vec::new();
+        objects.push( cube1.clone() );
+        objects.push( cube2.clone() );
+
 
 
         canvas.set_draw_color(sdl2::pixels::Color::RGB(0, 0, 0));
@@ -33,44 +38,43 @@ pub fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_co
 
 
 
-        // encapsulation
-        let mut objects = Vec::new();
-        objects.push( cube1.clone() );
-        objects.push( cube2.clone() );
 
 
         // transformations
-        for j  in 0..objects.len() {
-            
 
-            for i in 0..objects[j].0.len() {
-
-                objects[j].0[i] = scalair(objects[j].0[i], 150.0);
-                
-            }
-    
-            objects[j].0 = rotate(&objects[j].0, i * PI / 180.0, 'x');
-            objects[j].0 = rotate(&objects[j].0, i * PI / 180.0, 'z');
-            objects[j].0 = translate(&objects[j].0, [-400., 0., 0.]);
-    
-            
-    
-    
-            // lecture des events
-            player_event.controls(&mut objects, event_pump);
-            
+        objects[0].0 = scale(&objects[0].0, 150.0);
+        objects[1].0 = scale(&objects[1].0, 150.0);
+      
+        objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'x');
+        objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'z');
 
 
+        objects[1].0 = reset_translation(&objects[1].0);
 
-            projection_data.push(  Rasterizer::draw(&objects[j]) );
+        objects[1].0 = rotate(&objects[1].0, i * PI / 180.0, 'x');
+        objects[1].0 = rotate(&objects[1].0, i * PI / 180.0, 'z');
+
+        objects[1].0 = translate(&objects[1].0, [-400., 0., 0.]);
+        
 
 
-        }
-       
-
+        // lecture des events
+        if player_event.controls(event_pump)
+        {
+            break;
+        };
+        
 
         // projection
-        projection(projection_data, canvas);
+        projection(&mut objects[0], &player_event);
+        projection(&mut objects[1], &player_event);
+
+        // colorisation
+        Rasterizer::draw(&objects[1].0, &objects[1].1.0, &objects[1].1.1, canvas, &player_event);
+        Rasterizer::draw(&objects[0].0, &objects[0].1.0, &objects[0].1.1, canvas, &player_event);
+
+   
+
 
 
 

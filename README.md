@@ -1,9 +1,8 @@
 # Rust 3D game test engine
 
-1. Work with the Phong model shader
-2. ~~Work only with wavefront obj files~~
-3. Don't use directly OpenGL, Vulkan or others 3D libraries
-4. Without textures
+1. ~~Work only with wavefront obj files~~
+2. Don't use directly OpenGL, Vulkan or others 3D libraries
+3. Without textures
 ----------------------
 ## TODO :D
 ----------------------
@@ -19,12 +18,14 @@
         - [ ] ~~Understand how to match both~~
 
 - [ ] Load gltf/gltb files
-- [ ] Understand the translation transformation
+- [x] Understand the translation transformation
 - [x] Make rotations
 
-- [ ] Shading with Phong model
+- [ ] Shading
     - [ ] Enhance my shader
-    - [ ] ~~Textures~~
+        - [x] diffuse shader
+        - [ ] Specular shader
+    - [x] ~~Textures~~
         - [x] Draw texture on cube
         - [ ] ~~Draw it correctly~~
         - [ ] ~~Understand how to draw it correctly~~
@@ -33,17 +34,21 @@
     
 - [ ] ~~Using GPU instead of CPU~~
 - [ ] Moving through the world
+    - [x] X axis and Z axis
+    - [ ] rotate camera
+    - [ ] move with rotated camera
 ----------------------
 
-| First shader | Specular shading |
-| ----------------- | -------------------- |
-| <img height="300" width="300" src="./demos/cube_first.gif"> | <img height="300" width="300" src="./demos/cube_specular.gif"> |
 
-| Airplane failed test | Airplane test success |
-| --------------------- | ---------------- |
-| <img height="300" width="300" src="./demos/airplane.gif"> | <img height="300" width="300" src="./demos/airplane_success.gif"> |
+| Airplane test success |
+| ---------------- |
+| <img height="300" width="300" src="./demos/airplane_success.gif"> |
 
-| Failed texture mapping | Two cubes ! |
-| ---------------------- | ----------- |
-| <img height="300" width="300" src="./demos/failed_texture.gif"> | <img height="300" width="300" src="./demos/two_cubes.gif"> |
-| i need to learn more abour it | 
+| Two cubes ! |
+| ----------- |
+| <img height="300" width="300" src="./demos/two_cubes.gif"> |
+
+| Both ! |
+| ----------- |
+| <img height="300" width="300" src="./demos/cube_and_airplane.gif"> |
+

@@ -1,31 +1,35 @@
-use crate::shader;
+use sdl2::render::Canvas;
+use sdl2::video::Window;
 
+use crate::{constants::{WIDTH_LOGIC, HEIGHT_LOGIC}, shader, controls::EventControls};
 pub struct Rasterizer;
 
 
 impl Rasterizer {
 
-    pub fn draw(data: &(Vec<[f32; 3]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32)))) -> (Vec<[f32; 3]>, Vec<[u8; 3]>)
+    pub fn draw(data: &Vec<[f32; 6]>, normals: &Vec<[f32; 3]>, phong_data: &(Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32), canvas: &mut Canvas<Window>, player_event: &EventControls)
     {
-        let mut m_out: (Vec<[f32; 3]>, Vec<[u8; 3]>) = (Vec::new(), Vec::new());
 
-
-
-        let m = &data.0;
-        let normals = &data.1.0;
-        let phong_data = &data.1.1;
-
-        for i in (0..m.len()).step_by(3) {
+        for i in (0..data.len()).step_by(3) {
             
 
-            let v0 = m[i + 0];
-            let v1 = m[i + 1];
-            let v2 = m[i + 2];
+            let v0 = data[i + 0];
+            let v1 = data[i + 1];
+            let v2 = data[i + 2];
 
             
             // to check less pixels at time
             let (min_x, max_x, min_y, max_y) = Self::_check_min_max(v0, v1, v2);
 
+
+            // check overflow
+            if min_x > i32::MAX - 1 ||
+                min_y > i32::MAX - 1 ||
+                max_x > i32::MAX - 1 ||
+                max_y > i32::MAX - 1
+            {
+                return;
+            }
 
 
             for px in min_x..max_x+1 {
@@ -34,20 +38,16 @@ impl Rasterizer {
 
 
                     // pixel coordinate
-                    let p = [px as f32, py as f32, 0.0];
+                    let p = [px as f32, py as f32, v0[2]];
 
 
                     // check if pixel is inside triangle
                     if Self::_is_in_triangle(p, v0, v1, v2) 
                     {
+                        let rgb = shader::shader(player_event, &normals, p, &phong_data, i);
 
-                        
-                        let rgb_phong = shader::shader_phong(normals, p, phong_data, i);
-
-                        m_out.0.push([px as f32, py as f32, v0[2]]);
-                        m_out.1.push(rgb_phong);
-
-
+                        canvas.set_draw_color(sdl2::pixels::Color::RGB(rgb[0], rgb[1], rgb[2]));
+                        canvas.draw_point(sdl2::rect::Point::new((px as f32 + WIDTH_LOGIC as f32 / 2.) as i32, (py as f32 + HEIGHT_LOGIC as f32 / 2.) as i32)).unwrap();
                     }
       
                 }
@@ -57,11 +57,9 @@ impl Rasterizer {
 
         }
 
-        return m_out;
-
     }
 
-    fn _is_in_triangle(p: [f32; 3], a: [f32; 3], b: [f32; 3], c: [f32; 3]) -> bool
+    fn _is_in_triangle(p: [f32; 3], a: [f32; 6], b: [f32; 6], c: [f32; 6]) -> bool
     {
         // positifs
         let mut check_pos = true;
@@ -80,13 +78,13 @@ impl Rasterizer {
 
     }
 
-    fn _edge_check(p: [f32; 3], a: [f32; 3], b: [f32; 3]) -> f32
+    fn _edge_check(p: [f32; 3], a: [f32; 6], b: [f32; 6]) -> f32
     {
         // calcul du determinant
         return (a[0] - p[0]) * (b[1] - p[1]) - (a[1] - p[1]) * (b[0] - p[0]);
     }
 
-    fn _check_min_max(v0: [f32; 3], v1: [f32; 3], v2: [f32; 3]) -> (i32, i32, i32, i32)
+    fn _check_min_max(v0: [f32; 6], v1: [f32; 6], v2: [f32; 6]) -> (i32, i32, i32, i32)
     {
         let max_x = *vec![v0[0] as i32, v1[0] as i32, v2[0] as i32].iter().max().unwrap();
         let min_x = *vec![v0[0] as i32, v1[0] as i32, v2[0] as i32].iter().min().unwrap();
@@ -94,7 +92,7 @@ impl Rasterizer {
         let max_y = *vec![v0[1] as i32, v1[1] as i32, v2[1] as i32].iter().max().unwrap();
         let min_y = *vec![v0[1] as i32, v1[1] as i32, v2[1] as i32].iter().min().unwrap();
 
-        return (min_x as i32, max_x as i32, min_y as i32, max_y as i32)
+        return (min_x, max_x, min_y, max_y)
     }
 
 }

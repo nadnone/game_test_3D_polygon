@@ -16,17 +16,18 @@ impl EventControls {
         };
     }
 
-    /*
-        TODO REVOIR LA MATRICE DES OBJECTS
-        
-        [X,Y,Z, Tx, Ty, Tz] = T = translation
-    */
-    pub fn controls(&mut self, objects: &mut Vec<(Vec<[f32; 3]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32)))> , event_pump: &mut EventPump)
+    pub fn get_pos_camera(&self) -> [f32; 3]
+    {
+        return self.player_pos;
+    }
+    
+
+    pub fn controls(&mut self , event_pump: &mut EventPump) -> bool
     {
         // si il n'y pas d'event, osef
         if event_pump.poll_event().is_none()
         {
-            return;
+            return false;
         }
 
 
@@ -35,51 +36,36 @@ impl EventControls {
 
         if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::W)
         {
-            self.player_pos[2] = 10.0;
+            self.player_pos[2] += -10.0;
         }
         else if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::S)
         {
-            self.player_pos[2] = -10.0;
+            self.player_pos[2] += 10.0;
         }
 
 
         if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::A)
         {
-            self.player_pos[0] = 10.0;
+            self.player_pos[0] += 10.0;
         }
         else if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::D)
         {
-            self.player_pos[0] = -10.0;
+            self.player_pos[0] += -10.0;
+        }
+
+
+        //  quitter le programme
+        if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::Escape)
+        {
+            return true;
         }
 
 
 
-
-        Self::update_change(objects, self.player_pos);
-
-
+        return false;
     }
 
 
 
 
-    pub fn update_change(objects: &mut Vec<(Vec<[f32; 3]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32)))>, player_pos: [f32; 3])
-    {
-        
-        for objet in objects {
-            
-
-            for m in objet.0.iter_mut() {
-                
-                for i in 0..3 {
-                    
-                    m[i] += player_pos[i];
-
-                }
-
-            }
-
-        }
-
-    }
 }

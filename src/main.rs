@@ -22,7 +22,7 @@ pub fn main()
 
     let wind = video_subsystem.window("Game test", WIDTH as u32, HEIGHT as u32)
         .position_centered()
-        //fullscreen_desktop()
+        //.fullscreen_desktop()
         .build()
         .unwrap();
     

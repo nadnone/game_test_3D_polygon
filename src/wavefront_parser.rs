@@ -1,8 +1,11 @@
 use std::fs;
 use regex::Regex;
 
-
-pub fn load(filename: &str) -> (Vec<[f32; 3]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32)))
+/// la fonction retourne:
+/// ```
+/// (triangle, (normals, (ambiants, diffuse, specular, specular_exponent)))
+/// ```
+pub fn load(filename: &str) -> (Vec<[f32; 6]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, Vec<[f32; 3]>, Vec<[f32; 3]>, f32)))
 {
 
     let mut data = fs::read_to_string(filename).unwrap();
@@ -103,14 +106,26 @@ pub fn load(filename: &str) -> (Vec<[f32; 3]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, V
     // tri all data
     
     // triangles
-    let mut triangles: Vec<[f32; 3]> = Vec::new();
+    let mut triangles: Vec<[f32; 6]> = Vec::new();
     for i in 0..vertices_indices.len() {
 
         for j in 0..3 {
             
             let v = vertices_indices[i][j] as usize;
 
-            triangles.push( vertices_mess[v-1] );
+            triangles.push( 
+                [
+                    // rotation data
+                    vertices_mess[v-1][0],
+                    vertices_mess[v-1][1],
+                    vertices_mess[v-1][2],
+                    
+                    // translations data
+                    vertices_mess[v-1][0],
+                    vertices_mess[v-1][1],
+                    vertices_mess[v-1][2]
+                ]
+            );
         }
 
                 
@@ -239,7 +254,6 @@ pub fn load(filename: &str) -> (Vec<[f32; 3]>, (Vec<[f32; 3]>, (Vec<[f32; 3]>, V
         println!("can't find image texture");
     }
     */
-
 
     return (triangles, (normals, (ambiants, diffuse, specular, specular_exponent)));
 

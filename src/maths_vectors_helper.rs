@@ -11,7 +11,7 @@ pub fn soustraction_vectors(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
     return res;
 }
 
-pub fn addition_vectors(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
+pub fn _addition_vectors(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
 {
 
     let mut res: [f32; 3] = [0.0, 0.0, 0.0];
@@ -35,7 +35,7 @@ pub fn normaliser(a: [f32; 3]) -> [f32; 3]
     return scalair(a, 1.0/norme(a));
 }
 
-pub fn produit_vectoriel(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
+pub fn _produit_vectoriel(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
 {
     let mut cross = [0.0, 0.0, 0.0];
 
@@ -69,3 +69,28 @@ pub fn _angle_between_vectors(a: [f32;3], b: [f32; 3]) -> f32
     return produit_scalair(a, b) / (norme(a) * norme(b));
 }
 
+pub fn multiply_vectors(a: [[f32; 3]; 3], b: [[f32; 3]; 3]) -> [[f32; 3]; 3]
+{
+    
+    let mut res: [[f32; 3]; 3] = [
+        [0.0, 0.0, 0.0],
+        [0.0, 0.0, 0.0],
+        [0.0, 0.0, 0.0]
+    ];
+    
+    for i in 0..3 {
+
+        for j in 0..3 {
+            
+            for k in 0..3 {
+
+                res[i][j] += a[i][k] * b[k][j];
+
+            }
+
+        }
+
+    }
+
+    return res;
+}
