@@ -1,72 +1,76 @@
-use easy_gltf::{self, model::Mode};
+use gltf::Gltf;
 
 pub struct GLTFLoader;
 
 impl GLTFLoader {
 
 
-    pub fn load(filename: &str) -> Vec<(Vec<[f32; 6]>, Vec<[f32; 3]>, Vec<[f32; 3]>)>
+    pub fn load(filename: &str) -> (Vec<[f32; 6]>, Vec<[f32; 3]>, Vec<[f32; 3]>)
     {
 
 
-        let mut models = Vec::new();
+
+        let (gltf, buffers, _) = gltf::import(filename).unwrap();
+
 
         let mut models_points = Vec::new();
         let mut models_normals = Vec::new();
         let mut models_colors = Vec::new();
 
+           
 
-        let scenes = easy_gltf::load(filename).unwrap();
+        for mesh in gltf.meshes()
+        {
 
+            for primitive in mesh.primitives()
+            {
 
-        for scene in scenes {
-        
+                
+                let material = primitive.material().pbr_metallic_roughness();
+                let rgb_diffuse = material.base_color_factor();
 
-                for model in scene.models {
-                    
-                    if model.mode() == Mode::Triangles
-                    {
+                let reader = primitive.reader(|buffer| Some(&buffers[buffer.index()]));
 
-                        for vertex in model.triangles().unwrap() {
-                            
-                            for j in 0..3 {
+                if let Some(iter) = reader.read_indices() {
+                    for vertex_indices in iter.into_u32() {
 
-                                let mut x = vertex[j].position.x;
-                                let mut y = vertex[j].position.y;
-                                let mut z = vertex[j].position.z;
-                                
-                                models_points.push([
-                                            x, y, z,
-                                            x, y ,z // double parce-que transformations
-                                        ]);
-
-                                x = vertex[j].normal.x;
-                                y = vertex[j].normal.y;
-                                z = vertex[j].normal.z;
-
-                                models_normals.push([x, y, z]);
-
-
-                                let color = model.material().get_base_color(vertex[j].tex_coords);
-
-                                models_colors.push([color.x, color.y, color.z]);
-                            }
-                        }
-
-
+                        let position =  reader.read_positions().unwrap().into_iter().nth(vertex_indices as usize).unwrap();
+                        let normals =  reader.read_normals().unwrap().into_iter().nth(vertex_indices as usize).unwrap();
                         
+                        models_points.push([
+                            position[0],
+                            position[1],
+                            position[2],
+
+                            position[0],
+                            position[1],
+                            position[2]
+                        ]);
+
+                        models_normals.push(normals);
+
+                        models_colors.push([rgb_diffuse[0], rgb_diffuse[1], rgb_diffuse[2]]);
+
                     }
-
-
                 }
-                models.push((models_points.clone(), models_normals.clone(), models_colors.clone()));
+               
 
-                models_points.clear();
-                models_normals.clear();
-                models_colors.clear();
+
+            }
+
+
+
         }
-    
-        return models;
+
+        if models_points.len() % 3 != 0
+        {
+            println!("[!] Objet mal chargé ou non triangulé");
+        }
+
+
+        return (models_points.clone(), models_normals.clone(), models_colors.clone());
+
+
 
     }
 

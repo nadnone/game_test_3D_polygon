@@ -11,13 +11,19 @@ impl Rasterizer {
     {
 
         for i in (0..data.len()).step_by(3) {
-            
+
+
+            if i+2 >= data.len()
+            {
+                println!("Objet non triangulé");
+                return;
+            }
 
             let v0 = data[i + 0];
             let v1 = data[i + 1];
             let v2 = data[i + 2];
 
-            
+
             // to check less pixels at time
             let (min_x, max_x, min_y, max_y) = Self::_check_min_max(v0, v1, v2);
 
@@ -44,7 +50,8 @@ impl Rasterizer {
                     // check if pixel is inside triangle
                     if Self::_is_in_triangle(p, v0, v1, v2) 
                     {
-                        let rgb = pseudo_shader::shader(player_event, &normals, p, &colors_data, i).await;
+
+                        let rgb = pseudo_shader::shader(player_event, &normals, p, &colors_data, i);
 
                         canvas.set_draw_color(sdl2::pixels::Color::RGB(rgb[0], rgb[1], rgb[2]));
                         canvas.draw_point(sdl2::rect::Point::new((px as f32 + WIDTH_LOGIC as f32 / 2.) as i32, (py as f32 + HEIGHT_LOGIC as f32 / 2.) as i32)).unwrap();
@@ -91,6 +98,7 @@ impl Rasterizer {
 
         let max_y = *vec![v0[1] as i32, v1[1] as i32, v2[1] as i32].iter().max().unwrap();
         let min_y = *vec![v0[1] as i32, v1[1] as i32, v2[1] as i32].iter().min().unwrap();
+
 
         return (min_x, max_x, min_y, max_y)
     }

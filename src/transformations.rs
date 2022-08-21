@@ -40,8 +40,6 @@ pub fn rotate(a: &Vec<[f32; 6]>, angle: f32, axe: char) -> Vec<[f32; 6]>
 
     for p in (0..a.len()).step_by(3) {
 
-
-
         let mut kernel: [[f32; 3]; 3] = [
             [0.0, 0.0, 0.0],
             [0.0, 0.0, 0.0],

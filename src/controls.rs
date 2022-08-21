@@ -22,7 +22,7 @@ impl EventControls {
     }
     
 
-    pub async fn controls(&mut self , event_pump: &mut EventPump) -> bool
+    pub fn controls(&mut self , event_pump: &mut EventPump) -> bool
     {
         // si il n'y pas d'event, osef
         if event_pump.poll_event().is_none()

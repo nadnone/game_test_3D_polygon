@@ -16,14 +16,16 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _
     let mut i = 0.0;
     let mut player_event = EventControls::init(0.0, 0.0, 100.0);
 
-    let objet_data = GLTFLoader::load("./assets/Anime_charcter.glb");
+    let mut objet_data = GLTFLoader::load("./assets/purple_cube.glb");
+    
+    objet_data.0 = rotate(&objet_data.0, 180.0 * PI / 180.0, 'x');
     
     loop 
     {
     
         // encapsulation
         let mut objects = Vec::new();
-        objects.push( objet_data[0].clone() );
+        objects.push( objet_data.clone() );
 
 
 
@@ -37,22 +39,22 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _
 
         // transformations
 
-        objects[0].0 = scale(&objects[0].0, 80.0);
+        objects[0].0 = scale(&objects[0].0, 150.0);
         
       
 
         //objects[0].0 = reset_translation(&objects[0].0);
 
-        objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'x');
+        //objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'x');
         objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'y');
-        objects[0].0 = rotate(&objects[0].0, -i * PI / 180.0, 'z');
+        //objects[0].0 = rotate(&objects[0].0, -i * PI / 180.0, 'z');
 
         //objects[0].0 = translate(&objects[0].0, [-400., 0., 0.]);
         
 
 
         // lecture des events
-        if player_event.controls(event_pump).await
+        if player_event.controls(event_pump)
         {
             break;
         };
@@ -65,8 +67,6 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _
         Rasterizer::draw(&objects[0].0, &objects[0].1, &objects[0].2, canvas, &player_event).await;
 
    
-
-
 
 
 

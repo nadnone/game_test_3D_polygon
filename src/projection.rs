@@ -10,12 +10,13 @@ pub fn projection(data: &mut (Vec<[f32; 6]>, Vec<[f32; 3]>, Vec<[f32; 3]>), play
 
 
     // pour éviter d'avoir des objets en négatifs
-    let z_far = 100.0;
+    let z_far = 1000.0;
     let z_near = 1.0;
     let lambda: f32 = z_far / (z_far - z_near); // Z_FAR / (Z_FAR - Z_NEAR)
 
     // déplacement de la caméra
     let camera_position = player_event.get_pos_camera();
+    // A REVOIR
     let move_z = (2.0*PI/camera_position[2] + FOV/2.0) * lambda; 
 
     for i in 0..data.0.len() {
