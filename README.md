@@ -19,7 +19,8 @@
 
 - [ ] Load gltf/gltb files
     - [x] ~~use easy_gltb~~
-    - [ ] use an other lib that support animations
+    - [x] use an other lib that support animations
+    - [ ] load animation data
     - [ ] understand animations
 
 - [x] Understand the translation transformation
