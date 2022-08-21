@@ -8,7 +8,9 @@ use crate::gltf_file_loader::GLTFLoader;
 use crate::{constants::*, rasterizer::Rasterizer};
 use crate::projection::projection;
 
-pub fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_context: &mut sdl2::Sdl)
+
+#[tokio::main]
+pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_context: &mut sdl2::Sdl)
 {
 
     let mut i = 0.0;
@@ -41,7 +43,8 @@ pub fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_co
 
         //objects[0].0 = reset_translation(&objects[0].0);
 
-        //objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'y');
+        objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'x');
+        objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'y');
         objects[0].0 = rotate(&objects[0].0, -i * PI / 180.0, 'z');
 
         //objects[0].0 = translate(&objects[0].0, [-400., 0., 0.]);
@@ -49,7 +52,7 @@ pub fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_co
 
 
         // lecture des events
-        if player_event.controls(event_pump)
+        if player_event.controls(event_pump).await
         {
             break;
         };
@@ -59,7 +62,7 @@ pub fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _sdl_co
         projection(&mut objects[0], &player_event);
 
         // colorisation
-        Rasterizer::draw(&objects[0].0, &objects[0].1, &objects[0].2, canvas, &player_event);
+        Rasterizer::draw(&objects[0].0, &objects[0].1, &objects[0].2, canvas, &player_event).await;
 
    
 
