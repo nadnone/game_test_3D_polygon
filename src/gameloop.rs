@@ -16,7 +16,7 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _
     let mut i = 0.0;
     let mut player_event = EventControls::init(0.0, 0.0, 100.0);
 
-    let mut objet_data = GLTFLoader::load("./assets/purple_cube.glb");
+    let mut objet_data = GLTFLoader::load("./assets/personnage.glb");
     
     objet_data.0 = rotate(&objet_data.0, 180.0 * PI / 180.0, 'x');
     
@@ -29,7 +29,7 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _
 
 
 
-        canvas.set_draw_color(sdl2::pixels::Color::RGB(0, 0, 0));
+        canvas.set_draw_color(sdl2::pixels::Color::RGB(155, 155, 155));
         canvas.clear(); 
 
 
@@ -39,7 +39,7 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _
 
         // transformations
 
-        objects[0].0 = scale(&objects[0].0, 150.0);
+        objects[0].0 = scale(&objects[0].0, 50.0);
         
       
 
@@ -49,7 +49,7 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _
         objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'y');
         //objects[0].0 = rotate(&objects[0].0, -i * PI / 180.0, 'z');
 
-        //objects[0].0 = translate(&objects[0].0, [-400., 0., 0.]);
+        objects[0].0 = translate(&objects[0].0, [0., 250., 0.]);
         
 
 

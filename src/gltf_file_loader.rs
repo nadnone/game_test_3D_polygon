@@ -1,5 +1,3 @@
-use gltf::Gltf;
-
 pub struct GLTFLoader;
 
 impl GLTFLoader {
