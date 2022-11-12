@@ -46,7 +46,7 @@
 
 | Character with camera move ! |
 | ----------- |
-| <img height="300" width="300" src="./demos/charachter_slide.gif"> |
+| <img height="300" width="300" src="./demos/character_slide.gif"> |
 
 | Two cubes ! |
 | ----------- |

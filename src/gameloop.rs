@@ -14,7 +14,7 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _
 {
 
     let mut i = 0.0;
-    let mut player_event = EventControls::init(0.0, 0.0, 100.0);
+    let mut player_event = EventControls::init(0.0, 0.0, 2.0);
 
     let mut objet_data = GLTFLoader::load("./assets/personnage.glb");
     

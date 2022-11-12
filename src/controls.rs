@@ -36,11 +36,11 @@ impl EventControls {
 
         if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::W)
         {
-            self.player_pos[2] += -10.0;
+            self.player_pos[2] += -0.5;
         }
         else if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::S)
         {
-            self.player_pos[2] += 10.0;
+            self.player_pos[2] += 0.5;
         }
 
 
