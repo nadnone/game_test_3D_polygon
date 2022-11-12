@@ -15,7 +15,7 @@ impl Rasterizer {
 
             if i+2 >= data.len()
             {
-                println!("Objet non triangulé");
+                println!("[!] Objet non triangulé");
                 return;
             }
 

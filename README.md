@@ -1,4 +1,4 @@
-# Rust 3D game test engine
+# Rust 3D game test engine (Learning)
 
 1. ~~Work only with wavefront obj files~~
 2. Don't use directly OpenGL, Vulkan or others 3D libraries
@@ -44,14 +44,19 @@
     - [ ] move with rotated camera
 ----------------------
 
+| Charachter with camera move ! |
+| ----------- |
+| <img height="300" width="300" src="./demos/charachter_slide.gif"> |
+
+| Two cubes ! |
+| ----------- |
+| <img height="300" width="300" src="./demos/two_cubes.gif"> |
+
 
 | Airplane test success |
 | ---------------- |
 | <img height="300" width="300" src="./demos/airplane_success.gif"> |
 
-| Two cubes ! |
-| ----------- |
-| <img height="300" width="300" src="./demos/two_cubes.gif"> |
 
 | Both ! |
 | ----------- |

@@ -17,7 +17,7 @@ pub fn main()
 {
     
 
-    println!("Loading window");
+    println!("[*] Loading window");
     let mut sdl_context = sdl2::init().unwrap();
     let video_subsystem = sdl_context.video().unwrap();
 
@@ -27,14 +27,14 @@ pub fn main()
         .build()
         .unwrap();
     
-    println!("Initialization.");
+    println!("[*] Initialization.");
 
     let mut canvas = wind.into_canvas().build().unwrap();
     let mut event_pump = sdl_context.event_pump().unwrap();
 
     canvas.set_logical_size(WIDTH_LOGIC as u32, HEIGHT_LOGIC as u32).unwrap();
 
-    println!("Start!");
+    println!("[*] Start!");
     gameloop(&mut canvas, &mut event_pump, &mut sdl_context);
     
    
