@@ -44,7 +44,7 @@
     - [ ] move with rotated camera
 ----------------------
 
-| Charachter with camera move ! |
+| Character with camera move ! |
 | ----------- |
 | <img height="300" width="300" src="./demos/charachter_slide.gif"> |
 
