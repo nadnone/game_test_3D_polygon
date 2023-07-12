@@ -15,27 +15,20 @@ pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), play
      */
 
     // déplacement de la caméra
-    let mut camera_position = player_event.get_pos_camera(); // coordonnées de la caméra [x,y,z]
+    let camera_position = player_event.get_pos_camera(); // coordonnées de la caméra [x,y,z]
     
     let znear = camera_position[2] + 1.;
     let zfar = camera_position[2] + 1000.;
 
-    
     for i in 0..data.0.len() {
 
         let mut point = data.0[i]; // une coordonnnées d'un triangle [x,y,z]
 
-        // check de prodonfeur minimum
-        if camera_position[2] <= 0. {
-            camera_position[2] = 1.;
-
-            println!("{:?}", camera_position[2]);
-        }
 
         // mouvement de la caméra dans le monde
-        point[0] = camera_position[0] - point[0];
-        point[1] = camera_position[1] - point[1];
-        point[2] = camera_position[2] - point[2];
+        point[0] += camera_position[0];
+        point[1] += camera_position[1];
+        point[2] += camera_position[2];
 
         // matrice de projection
         let mut m_proj = [

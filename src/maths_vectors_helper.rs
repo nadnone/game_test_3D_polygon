@@ -84,17 +84,16 @@ pub fn multiply_vectors(a: [[f32; 3]; 3], b: [[f32; 3]; 3]) -> [[f32; 3]; 3]
 
 pub fn mat4_multiply_vec4(mat4: [[f32; 4]; 4], vector: [f32; 4]) -> [f32; 4]
 {
-
+    
     let mut rslt = [0., 0., 0., 0.];
 
-   for i in 0..4 {
-       for j in 0..4 {
-           for k in 0..4 {
+    for i in 0..4 {
+        for j in 0..4 {
 
-                rslt[k] = mat4[i][j] * vector[k];
-           }
-       }
-   }
+                // Je pense que l'origine du problème vient de là
+                rslt[i] = mat4[i][j] * vector[j];
+        }
+    }
 
    return rslt;
     
