@@ -54,7 +54,7 @@ pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), play
         {
             rslt[0] /= rslt[3];   // x / w
             rslt[1] /= rslt[3];   // y / w
-            rslt[1] /= rslt[3];   // z / w
+            rslt[2] /= rslt[3];   // z / w
         }
 
 

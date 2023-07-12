@@ -48,11 +48,11 @@ impl EventControls {
 
         if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::A)
         {
-            self.player_pos[0] += 1.;
+            self.player_pos[0] += 10.;
         }
         else if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::D)
         {
-            self.player_pos[0] += -1.;
+            self.player_pos[0] += -10.;
         }
 
 
