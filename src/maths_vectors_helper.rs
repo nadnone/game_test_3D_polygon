@@ -90,8 +90,8 @@ pub fn mat4_multiply_vec4(mat4: [[f32; 4]; 4], vector: [f32; 4]) -> [f32; 4]
     for i in 0..4 {
         for j in 0..4 {
 
-                // Je pense que l'origine du problème vient de là
-                rslt[i] = mat4[i][j] * vector[j];
+                // https://mbernste.github.io/posts/matrix_vector_mult/
+                rslt[j] += mat4[i][j] * vector[j];
         }
     }
 

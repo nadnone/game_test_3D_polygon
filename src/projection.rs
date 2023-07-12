@@ -12,7 +12,7 @@ pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), play
         comprendre la matrice de projection
         - https://youtu.be/U0_ONQQ5ZNM
         - https://youtu.be/Do_vEjd6gF0?list=PLYnrabpSIM-97qGEeOWnxZBqvR_zwjWoo
-     */
+    */
 
     // déplacement de la caméra
     let camera_position = player_event.get_pos_camera(); // coordonnées de la caméra [x,y,z]

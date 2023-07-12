@@ -18,7 +18,7 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _
 
     let mut objet_data = GLTFLoader::load("./assets/personnage.glb");
     
-    objet_data.0 = scale(&objet_data.0, 50.0);
+    objet_data.0 = scale(&objet_data.0, 60.0);
     //objet_data.0 = rotate(&objet_data.0, 180.0 * PI / 180.0, 'x');
     //objet_data.0 = translate(&objet_data.0, [0., HEIGHT/2.0, 0.]);
     
