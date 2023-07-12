@@ -5,7 +5,7 @@ use regex::Regex;
 /// ```
 /// (triangle, normals, colors)
 /// ```
-pub fn load(filename: &str) -> (Vec<[f32; 6]>, Vec<[f32; 3]>, Vec<[f32; 3]>)
+pub fn _load(filename: &str) -> (Vec<[f32; 6]>, Vec<[f32; 3]>, Vec<[f32; 3]>)
 {
 
     let mut data = fs::read_to_string(filename).unwrap();
@@ -96,8 +96,8 @@ pub fn load(filename: &str) -> (Vec<[f32; 6]>, Vec<[f32; 3]>, Vec<[f32; 3]>)
     */
 
     // the materials and the mtl file
-    let mut re_1 = Regex::new(r"mtllib\s(.*)").unwrap().find(str).unwrap();
-    let mtl_filename = &data[re_1.start()+7..re_1.end()];
+    let mut _re_1 = Regex::new(r"mtllib\s(.*)").unwrap().find(str).unwrap();
+    let mtl_filename = &data[_re_1.start()+7.._re_1.end()];
 
 
 

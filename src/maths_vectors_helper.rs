@@ -32,19 +32,9 @@ pub fn norme(a: [f32; 3]) -> f32
 
 pub fn normaliser(a: [f32; 3]) -> [f32; 3]
 {
-    return scalair(a, 1.0/norme(a));
+    return scale(a, 1.0/norme(a));
 }
 
-pub fn _produit_vectoriel(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
-{
-    let mut cross = [0.0, 0.0, 0.0];
-
-    cross[0] = (a[1] * b[2]) - (a[2] * b[1]);
-    cross[1] = (a[2] * b[0]) - (a[0] * b[2]);
-    cross[2] = (a[0] * b[1]) - (a[1] * b[0]);
-
-    return cross;
-}
 
 pub fn produit_scalair(a: [f32; 3], b :[f32; 3]) -> f32
 {
@@ -53,7 +43,7 @@ pub fn produit_scalair(a: [f32; 3], b :[f32; 3]) -> f32
 
 
 
-pub fn scalair(a: [f32; 3], factor: f32) -> [f32; 3]
+pub fn scale(a: [f32; 3], factor: f32) -> [f32; 3]
 {
     let mut res = [0.0, 0.0, 0.0];
 
@@ -64,10 +54,6 @@ pub fn scalair(a: [f32; 3], factor: f32) -> [f32; 3]
     return res;
 }
 
-pub fn _angle_between_vectors(a: [f32;3], b: [f32; 3]) -> f32
-{
-    return produit_scalair(a, b) / (norme(a) * norme(b));
-}
 
 pub fn multiply_vectors(a: [[f32; 3]; 3], b: [[f32; 3]; 3]) -> [[f32; 3]; 3]
 {
@@ -93,4 +79,24 @@ pub fn multiply_vectors(a: [[f32; 3]; 3], b: [[f32; 3]; 3]) -> [[f32; 3]; 3]
     }
 
     return res;
+}
+
+
+pub fn mat4_multiply_vec4(mat4: [[f32; 4]; 4], vector: [f32; 4]) -> [f32; 4]
+{
+
+    let mut rslt = [0., 0., 0., 0.];
+
+   for i in 0..4 {
+       for j in 0..4 {
+           for k in 0..4 {
+
+                rslt[k] = mat4[i][j] * vector[k];
+           }
+       }
+   }
+
+   return rslt;
+    
+
 }

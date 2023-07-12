@@ -1,6 +1,6 @@
 use crate::maths_vectors_helper::multiply_vectors;
 
-pub fn rotate(a: &Vec<[f32; 6]>, angle: f32, axe: char) -> Vec<[f32; 6]>
+pub fn rotate(a: &Vec<[f32; 4]>, angle: f32, axe: char) -> Vec<[f32; 4]>
 {
 
     let cos = angle.cos();
@@ -43,7 +43,7 @@ pub fn rotate(a: &Vec<[f32; 6]>, angle: f32, axe: char) -> Vec<[f32; 6]>
         let mut kernel: [[f32; 3]; 3] = [
             [0.0, 0.0, 0.0],
             [0.0, 0.0, 0.0],
-            [0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0]
         ];
 
         for i in 0..3
@@ -64,9 +64,7 @@ pub fn rotate(a: &Vec<[f32; 6]>, angle: f32, axe: char) -> Vec<[f32; 6]>
                     res[i][0], 
                     res[i][1], 
                     res[i][2],
-                    a[p + i][3], 
-                    a[p + i][4], 
-                    a[p + i][5]
+                    1.
                 ]
             );
 
@@ -79,7 +77,7 @@ pub fn rotate(a: &Vec<[f32; 6]>, angle: f32, axe: char) -> Vec<[f32; 6]>
 }
 
 
-pub fn translate(a: &Vec<[f32; 6]>, translation: [f32; 3]) -> Vec<[f32; 6]>
+pub fn translate(a: &Vec<[f32; 4]>, translation: [f32; 3]) -> Vec<[f32; 4]>
 {
 
 
@@ -97,27 +95,8 @@ pub fn translate(a: &Vec<[f32; 6]>, translation: [f32; 3]) -> Vec<[f32; 6]>
     return m_out;
 }
 
-pub fn reset_translation(a: &Vec<[f32; 6]>) -> Vec<[f32; 6]>
-{
 
-
-    let mut m_out = a.clone();
-
-    for p in 0..a.len() {
-
-        m_out[p][0] = a[p][3];
-        m_out[p][1] = a[p][4];
-        m_out[p][2] = a[p][5];
-
-       
-    }   
-
-    return m_out;
-}
-
-
-
-pub fn scale(a: &Vec<[f32; 6]>, factor: f32) -> Vec<[f32; 6]>
+pub fn scale(a: &Vec<[f32; 4]>, factor: f32) -> Vec<[f32; 4]>
 {
     let mut m_out = a.clone();
 

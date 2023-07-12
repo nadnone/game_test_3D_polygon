@@ -9,6 +9,8 @@ impl EventControls {
 
     // TODO FAIRE LES EVENT INPUT CLAVIER SOURIS
 
+    /// initialisation de la caméra
+    /// * [x,y,z] position caméra / joueur
     pub fn init(x: f32, y: f32, z: f32) -> EventControls
     {
         return EventControls {
@@ -36,21 +38,21 @@ impl EventControls {
 
         if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::W)
         {
-            self.player_pos[2] += -0.5;
+            self.player_pos[2] += -1.;
         }
         else if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::S)
         {
-            self.player_pos[2] += 0.5;
+            self.player_pos[2] += 1.;
         }
 
 
         if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::A)
         {
-            self.player_pos[0] += 10.0;
+            self.player_pos[0] += 1.;
         }
         else if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::D)
         {
-            self.player_pos[0] += -10.0;
+            self.player_pos[0] += -1.;
         }
 
 

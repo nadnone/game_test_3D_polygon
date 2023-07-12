@@ -14,7 +14,7 @@ pub fn shader(player_event: &EventControls, normals: &Vec<[f32; 3]>, v0: [f32; 3
 
     // Lambert diffuse model
     let intensity = produit_scalair(norm, light_pos); // N * L
-    let diffuse = scalair(color_data[i], intensity);
+    let diffuse = scale(color_data[i], intensity);
 
 
     // TODO specular (or not)

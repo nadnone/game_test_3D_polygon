@@ -3,7 +3,7 @@ use sdl2::render::Canvas;
 use sdl2::video::Window;
 
 use crate::controls::EventControls;
-use crate::transformations::{rotate, translate, scale, reset_translation};
+use crate::transformations::{rotate, translate, scale};
 use crate::gltf_file_loader::GLTFLoader;
 use crate::{constants::*, rasterizer::Rasterizer};
 use crate::projection::projection;
@@ -14,11 +14,13 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _
 {
 
     let mut i = 0.0;
-    let mut player_event = EventControls::init(0.0, 0.0, 2.0);
+    let mut player_event = EventControls::init(0.0, 0.0, 1.0);
 
     let mut objet_data = GLTFLoader::load("./assets/personnage.glb");
     
+    objet_data.0 = scale(&objet_data.0, 50.0);
     objet_data.0 = rotate(&objet_data.0, 180.0 * PI / 180.0, 'x');
+    objet_data.0 = translate(&objet_data.0, [0., HEIGHT/2.5, 0.]);
     
     loop 
     {
@@ -39,18 +41,9 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, _
 
         // transformations
 
-        objects[0].0 = scale(&objects[0].0, 50.0);
-        
-      
-
-        //objects[0].0 = reset_translation(&objects[0].0);
-
         //objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'x');
         objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'y');
         //objects[0].0 = rotate(&objects[0].0, -i * PI / 180.0, 'z');
-
-        objects[0].0 = translate(&objects[0].0, [0., 250., 0.]);
-        
 
 
         // lecture des events

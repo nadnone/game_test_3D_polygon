@@ -3,7 +3,7 @@ pub struct GLTFLoader;
 impl GLTFLoader {
 
 
-    pub fn load(filename: &str) -> (Vec<[f32; 6]>, Vec<[f32; 3]>, Vec<[f32; 3]>)
+    pub fn load(filename: &str) -> (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>)
     {
 
 
@@ -39,10 +39,7 @@ impl GLTFLoader {
                             position[0],
                             position[1],
                             position[2],
-
-                            position[0],
-                            position[1],
-                            position[2]
+                            1.
                         ]);
 
                         models_normals.push(normals);

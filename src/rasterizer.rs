@@ -7,7 +7,7 @@ pub struct Rasterizer;
 
 impl Rasterizer {
 
-    pub async fn draw(data: &Vec<[f32; 6]>, normals: &Vec<[f32; 3]>, colors_data: &Vec<[f32; 3]>, canvas: &mut Canvas<Window>, player_event: &EventControls)
+    pub async fn draw(data: &Vec<[f32; 4]>, normals: &Vec<[f32; 3]>, colors_data: &Vec<[f32; 3]>, canvas: &mut Canvas<Window>, player_event: &EventControls)
     {
 
         for i in (0..data.len()).step_by(3) {
@@ -66,7 +66,7 @@ impl Rasterizer {
 
     }
 
-    fn _is_in_triangle(p: [f32; 3], a: [f32; 6], b: [f32; 6], c: [f32; 6]) -> bool
+    fn _is_in_triangle(p: [f32; 3], a: [f32; 4], b: [f32; 4], c: [f32; 4]) -> bool
     {
         // positifs
         let mut check_pos = true;
@@ -85,13 +85,13 @@ impl Rasterizer {
 
     }
 
-    fn _edge_check(p: [f32; 3], a: [f32; 6], b: [f32; 6]) -> f32
+    fn _edge_check(p: [f32; 3], a: [f32; 4], b: [f32; 4]) -> f32
     {
         // calcul du determinant
         return (a[0] - p[0]) * (b[1] - p[1]) - (a[1] - p[1]) * (b[0] - p[0]);
     }
 
-    fn _check_min_max(v0: [f32; 6], v1: [f32; 6], v2: [f32; 6]) -> (i32, i32, i32, i32)
+    fn _check_min_max(v0: [f32; 4], v1: [f32; 4], v2: [f32; 4]) -> (i32, i32, i32, i32)
     {
         let max_x = *vec![v0[0] as i32, v1[0] as i32, v2[0] as i32].iter().max().unwrap();
         let min_x = *vec![v0[0] as i32, v1[0] as i32, v2[0] as i32].iter().min().unwrap();
