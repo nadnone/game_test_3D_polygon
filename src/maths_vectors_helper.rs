@@ -55,7 +55,7 @@ pub fn scale(a: [f32; 3], factor: f32) -> [f32; 3]
 }
 
 
-pub fn multiply_vectors(a: [[f32; 3]; 3], b: [[f32; 3]; 3]) -> [[f32; 3]; 3]
+pub fn multiply_matrix(a: [[f32; 3]; 3], b: [[f32; 3]; 3]) -> [[f32; 3]; 3]
 {
     
     let mut res: [[f32; 3]; 3] = [
@@ -69,6 +69,33 @@ pub fn multiply_vectors(a: [[f32; 3]; 3], b: [[f32; 3]; 3]) -> [[f32; 3]; 3]
         for j in 0..3 {
             
             for k in 0..3 {
+
+                res[i][j] += a[i][k] * b[k][j];
+
+            }
+
+        }
+
+    }
+
+    return res;
+}
+
+pub fn multiply_matrix4(a: [[f32; 4]; 4], b: [[f32; 4]; 4]) -> [[f32; 4]; 4]
+{
+    
+    let mut res: [[f32; 4]; 4] = [
+        [0., 0., 0., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 0., 0.]
+    ];
+    
+    for i in 0..4 {
+
+        for j in 0..4 {
+            
+            for k in 0..4 {
 
                 res[i][j] += a[i][k] * b[k][j];
 

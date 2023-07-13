@@ -1,4 +1,4 @@
-use crate::maths_vectors_helper::multiply_vectors;
+use crate::maths_vectors_helper::{multiply_matrix, multiply_matrix4};
 
 pub fn rotate(a: &Vec<[f32; 4]>, angle: f32, axe: char) -> Vec<[f32; 4]>
 {
@@ -53,7 +53,7 @@ pub fn rotate(a: &Vec<[f32; 4]>, angle: f32, axe: char) -> Vec<[f32; 4]>
             kernel[2][i] = a[p + 2][i];
         }
         
-        let res = multiply_vectors(kernel, matrix_rot);
+        let res = multiply_matrix(kernel, matrix_rot);
 
 
 
@@ -76,8 +76,7 @@ pub fn rotate(a: &Vec<[f32; 4]>, angle: f32, axe: char) -> Vec<[f32; 4]>
     return m_out;
 }
 
-
-pub fn translate(a: &Vec<[f32; 4]>, translation: [f32; 3]) -> Vec<[f32; 4]>
+pub fn _translate(a: &Vec<[f32; 4]>, translation: [f32; 3]) -> Vec<[f32; 4]>
 {
 
 

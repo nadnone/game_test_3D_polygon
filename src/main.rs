@@ -19,11 +19,12 @@ pub fn main()
 
     println!("[*] Loading window");
     let mut sdl_context = sdl2::init().unwrap();
+
     let video_subsystem = sdl_context.video().unwrap();
 
     let wind = video_subsystem.window("Game test", WIDTH as u32, HEIGHT as u32)
         .position_centered()
-        //.fullscreen_desktop()
+        .fullscreen_desktop()
         .build()
         .unwrap();
     

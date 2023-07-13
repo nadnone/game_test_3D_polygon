@@ -10,5 +10,6 @@ pub const HEIGHT_LOGIC: i32 = 900;
 pub const FPS: f32 = 0.0006;
 
 pub const PI: f32 = 3.141592653589793;
+pub const FOV: f32 = 68.0 * PI / 180.;
 
-pub const FOV: f32 = 68.0 * PI / 180.0;
+pub const MOUSE_SENSIVITY: f32 = 1./5.;

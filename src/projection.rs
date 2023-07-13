@@ -1,11 +1,11 @@
 use crate::constants::*;
 use crate::controls::EventControls;
-use crate::maths_vectors_helper::mat4_multiply_vec4;
+use crate::maths_vectors_helper::{mat4_multiply_vec4, multiply_matrix4};
 
 
 /// ```
 /// data: (points, (normals, phon_data)), 
-pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), player_event: &EventControls)
+pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), player_event: &EventControls, view_matrix: [[f32; 4]; 4])
 {
 
     /*
@@ -14,21 +14,12 @@ pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), play
         - https://youtu.be/Do_vEjd6gF0?list=PLYnrabpSIM-97qGEeOWnxZBqvR_zwjWoo
     */
 
-    // déplacement de la caméra
-    let camera_position = player_event.get_pos_camera(); // coordonnées de la caméra [x,y,z]
-    
-    let znear = camera_position[2] + 1.;
-    let zfar = camera_position[2] + 1000.;
+    let znear = 1.;
+    let zfar = 1000.;
 
     for i in 0..data.0.len() {
 
-        let mut point = data.0[i]; // une coordonnnées d'un triangle [x,y,z]
-
-
-        // mouvement de la caméra dans le monde
-        point[0] += camera_position[0];
-        point[1] += camera_position[1];
-        point[2] += camera_position[2];
+        let point = data.0[i]; // une coordonnnées d'un triangle [x,y,z]
 
         // matrice de projection
         let mut m_proj = [
@@ -47,7 +38,9 @@ pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), play
 
 
         // multiplication avec les coordonnées
-        let mut rslt = mat4_multiply_vec4(m_proj, point);
+        let  model_proj_matrix = multiply_matrix4(m_proj, view_matrix);
+        
+        let mut rslt = mat4_multiply_vec4(model_proj_matrix, point);
 
         // projection
         if rslt[3] != 0. 
