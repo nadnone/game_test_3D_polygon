@@ -1,7 +1,7 @@
 # Rust 3D game test engine (Learning)
 
 1. ~~Work only with wavefront obj files~~
-2. Don't use directly OpenGL, Vulkan or others 3D libraries
+2. Doesn't use directly OpenGL, Vulkan or others 3D libraries
 3. Without textures
 ----------------------
 ## TODO :D
