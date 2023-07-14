@@ -4,7 +4,8 @@ use sdl2::video::Window;
 
 use crate::controls::EventControls;
 use crate::lookat_camera::Camera;
-use crate::transformations::{scale, rotate, translate};
+use crate::maths_vectors_helper::produit_scalair;
+use crate::transformations::{scale, rotate};
 use crate::gltf_file_loader::GLTFLoader;
 use crate::{constants::*, rasterizer::Rasterizer};
 use crate::projection::projection;
@@ -15,15 +16,12 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, s
 {
 
 
+
     let mut i = 0.5;
     let mut player_event = EventControls::init(0.0, 0.0, 10.0);
 
-    let mut objet_data = GLTFLoader::load("./assets/personnage.glb");
+    let objet_data = GLTFLoader::load("./assets/personnage.glb");
 
-    objet_data.0 = scale(&objet_data.0, 30.0);
-    objet_data.0 = rotate(&objet_data.0, 180.0 * PI / 180.0, 'x');
-    objet_data.0 = translate(&objet_data.0, [0., HEIGHT/4.0, 0.]);
-    
     loop 
     {
     
@@ -43,9 +41,9 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, s
 
         // transformations
 
-        //objects[0].0 = rotate(&objects[0].0, i * PI / 180.0, 'x');
-        //objects[0].0 = scale(&objects[0].0, 30.);
-        //objects[0].0 = rotate(&objects[0].0, i * PI / 180., 'y');
+        objects[0].0 = rotate(&objects[0].0, PI, 'x');
+        objects[0].0 = scale(&objects[0].0, 60.);
+        objects[0].0 = rotate(&objects[0].0, i as f32 * PI / 180., 'y');
         //objects[0].0 = rotate(&objects[0].0, -i * PI / 180.0, 'z');
 
 
@@ -56,14 +54,15 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, s
         };
         
 
-        // lookat camera
-        let cam_pos_x = (i as f32 * PI / 180.).sin() * 3.;
-        let cam_pos_z = (i as f32 * PI / 180.).cos() * 3.;
 
-        let camera_manager = Camera::place([cam_pos_x, 0., cam_pos_z], [0., 0., 0.], [0., 1., 0.]);
-
-
+        // TODO comprendre la rotation de la caméra
         
+        let player_x = (i as f32 * PI / 180.).sin();
+        let player_z = (i as f32 * PI / 180.).cos();
+
+        let camera_manager = Camera::place([0., 0., 3.], [0., 0., 0.], [0., 1., 0.]);
+
+
         // projection
         projection(&mut objects[0], &player_event, &camera_manager);
 
@@ -77,7 +76,7 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, s
 
 
         // angle de rotation
-        i += 2.0;
+        i += 0.5;
         i %= 360.0;
         
 

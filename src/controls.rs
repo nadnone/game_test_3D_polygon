@@ -1,6 +1,6 @@
 use sdl2::EventPump;
 
-use crate::constants::MOUSE_SENSIVITY;
+use crate::constants::{MOUSE_SENSIVITY, HEIGHT, WIDTH};
 
 pub struct EventControls {
     player_pos: [f32; 3],
@@ -43,7 +43,7 @@ impl EventControls {
 
         // MOUSE 
         // inversion x,y -> y,x car les axes de la souris ne sont pas les mêmes que ceux de l'écran
-        self.player_angle = [event_pump.relative_mouse_state().y() as f32 * MOUSE_SENSIVITY, event_pump.relative_mouse_state().x() as f32 * MOUSE_SENSIVITY, 0.];
+        self.player_angle = [event_pump.mouse_state().y() as f32 / HEIGHT * MOUSE_SENSIVITY, event_pump.mouse_state().x() as f32 / WIDTH * MOUSE_SENSIVITY, 0.];
 
         // END MOUSE
 
