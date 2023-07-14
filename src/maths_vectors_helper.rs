@@ -24,6 +24,17 @@ pub fn _addition_vectors(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
     return res;
 }
 
+pub fn produit_vectoriel(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
+{
+
+    let mut res = [0., 0., 0.];
+    
+    res[0] = a[1] * b[2] - a[2] * b[1];
+    res[1] = a[2] * b[2] - a[2] * b[1];
+    res[2] = a[0] * b[1] - a[1] * b[0];
+
+    return res;
+}
 
 pub fn norme(a: [f32; 3]) -> f32
 {
@@ -53,7 +64,6 @@ pub fn scale(a: [f32; 3], factor: f32) -> [f32; 3]
 
     return res;
 }
-
 
 pub fn multiply_matrix(a: [[f32; 3]; 3], b: [[f32; 3]; 3]) -> [[f32; 3]; 3]
 {

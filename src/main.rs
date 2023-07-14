@@ -9,6 +9,7 @@ mod pseudo_shader;
 mod transformations;
 mod controls;
 mod gltf_file_loader;
+mod lookat_camera;
 
 use crate::{gameloop::gameloop, constants::*};
 

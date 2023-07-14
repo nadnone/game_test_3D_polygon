@@ -22,12 +22,12 @@ impl EventControls {
         };
     }
 
-    pub fn get_pos_camera(&self) -> [f32; 3]
+    pub fn get_pos_player(&self) -> [f32; 3]
     {
         return self.player_pos;
     }
 
-    pub fn get_angle_camera(&self) -> [f32; 3]
+    pub fn get_angle_player(&self) -> [f32; 3]
     {
         return self.player_angle;
     }
@@ -43,10 +43,7 @@ impl EventControls {
 
         // MOUSE 
         // inversion x,y -> y,x car les axes de la souris ne sont pas les mêmes que ceux de l'écran
-        // cours: https://youtu.be/rvJHkYnAR3w
-
         self.player_angle = [event_pump.relative_mouse_state().y() as f32 * MOUSE_SENSIVITY, event_pump.relative_mouse_state().x() as f32 * MOUSE_SENSIVITY, 0.];
-
 
         // END MOUSE
 

@@ -3,7 +3,7 @@ use crate::{maths_vectors_helper::*, controls::EventControls};
 pub fn shader(player_event: &EventControls, normals: &Vec<[f32; 3]>, v0: [f32; 3], color_data: &Vec<[f32; 3]>, i: usize) -> [u8; 3]
 {
 
-    let cam_pos = normaliser(player_event.get_pos_camera());
+    let cam_pos = normaliser(player_event.get_pos_player());
     let _cam_dir = normaliser(soustraction_vectors(cam_pos, v0));
 
 

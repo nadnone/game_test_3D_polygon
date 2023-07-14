@@ -76,7 +76,7 @@ pub fn rotate(a: &Vec<[f32; 4]>, angle: f32, axe: char) -> Vec<[f32; 4]>
     return m_out;
 }
 
-pub fn _translate(a: &Vec<[f32; 4]>, translation: [f32; 3]) -> Vec<[f32; 4]>
+pub fn translate(a: &Vec<[f32; 4]>, translation: [f32; 3]) -> Vec<[f32; 4]>
 {
 
 
