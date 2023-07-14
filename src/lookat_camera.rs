@@ -14,7 +14,7 @@ impl Camera {
     {
 
 
-        /* help found there
+        /* help found here
             
             - https://learnopengl.com/Getting-started/Camera
             - https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/lookat-function/framing-lookat-function.html
@@ -34,9 +34,9 @@ impl Camera {
         let tz = produit_scalair(from, forward);
 
         let view_matrix = [
-            [right[0], new_up[0], forward[0], tx],
-            [right[1], new_up[1], forward[1], ty],
-            [right[2], new_up[2], forward[2], tz],
+            [right[0], new_up[0], forward[0], -tx],
+            [right[1], new_up[1], forward[1], -ty],
+            [right[2], new_up[2], forward[2], -tz],
             [0., 0., 0., 1.],
         ];
 

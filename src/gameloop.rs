@@ -41,7 +41,7 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, s
 
         // transformations
 
-        objects[0].0 = rotate(&objects[0].0, PI, 'x');
+        //objects[0].0 = rotate(&objects[0].0, PI, 'x');
         objects[0].0 = scale(&objects[0].0, 60.);
         objects[0].0 = rotate(&objects[0].0, i as f32 * PI / 180., 'y');
         //objects[0].0 = rotate(&objects[0].0, -i * PI / 180.0, 'z');
