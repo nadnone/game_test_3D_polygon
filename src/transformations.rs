@@ -1,4 +1,4 @@
-use crate::maths_vectors_helper::{multiply_matrix, multiply_matrix4};
+use crate::maths_vectors_helper::{multiply_matrix, multiply_matrix4, mat4_multiply_vec4};
 
 pub fn rotate(a: &Vec<[f32; 4]>, angle: f32, axe: char) -> Vec<[f32; 4]>
 {
@@ -87,7 +87,6 @@ pub fn translate(a: &Vec<[f32; 4]>, translation: [f32; 3]) -> Vec<[f32; 4]>
         m_out[p][0] = a[p][0] + translation[0];
         m_out[p][1] = a[p][1] + translation[1];
         m_out[p][2] = a[p][2] + translation[2];
-
        
     }   
 
@@ -101,13 +100,37 @@ pub fn scale(a: &Vec<[f32; 4]>, factor: f32) -> Vec<[f32; 4]>
 
     for i in 0..a.len() {
 
-        for j in 0..a[i].len() {
+        for j in 0..3 {
             
             m_out[i][j] = a[i][j] * factor;
 
         }
-        
+
     }
 
     return m_out;
+}
+
+pub fn transform(a: &Vec<[f32; 4]>, transform_matrix: [[f32; 4]; 4]) -> Vec<[f32; 4]>
+{
+
+    let mut m_out = a.clone();
+
+    for el in 0..a.len() {
+        
+
+        for i in 0..4 {
+            for j in 0..4 {
+                
+                // multiplication mat4 sur vec4
+                m_out[el][i] += transform_matrix[i][j] * a[el][j];
+            }
+        }
+
+    }
+
+
+
+    return m_out;
+
 }

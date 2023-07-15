@@ -1,6 +1,6 @@
 use sdl2::EventPump;
 
-use crate::constants::{MOUSE_SENSIVITY, HEIGHT, WIDTH};
+use crate::constants::{MOUSE_SENSIVITY, HEIGHT, WIDTH, WALK_SENSIVITY};
 
 pub struct EventControls {
     player_pos: [f32; 3],
@@ -53,21 +53,21 @@ impl EventControls {
 
         if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::W)
         {
-            self.player_pos[2] += - 1.;
+            self.player_pos[2] += -1. * WALK_SENSIVITY;
         }
         else if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::S)
         {
-            self.player_pos[2] += 1.;
+            self.player_pos[2] += 1. * WALK_SENSIVITY;
         }
 
 
         if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::A)
         {
-            self.player_pos[0] += 1.;
+            self.player_pos[0] += 1. * WALK_SENSIVITY;
         }
         else if keyboard_events.is_scancode_pressed(sdl2::keyboard::Scancode::D)
         {
-            self.player_pos[0] += -1.;
+            self.player_pos[0] += -1. * WALK_SENSIVITY;
         }
 
 

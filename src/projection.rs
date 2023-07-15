@@ -1,12 +1,10 @@
 use crate::constants::*;
-use crate::controls::EventControls;
-use crate::lookat_camera::Camera;
 use crate::maths_vectors_helper::{mat4_multiply_vec4, multiply_matrix4};
 
 
 /// ```
 /// data: (points, (normals, phon_data)), 
-pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), player_event: &EventControls, camera_matrix: &Camera)
+pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), view_matrix: [[f32; 4]; 4])
 {
 
     /*
@@ -39,7 +37,7 @@ pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), play
 
 
         // application de la caméra
-        let cam_proj = multiply_matrix4( m_proj, camera_matrix.get_cam_matrix());
+        let cam_proj = multiply_matrix4( m_proj, view_matrix);
         
         // multiplication avec les coordonnées
         let mut rslt = mat4_multiply_vec4(cam_proj, point);
