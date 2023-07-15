@@ -4,7 +4,7 @@ use sdl2::video::Window;
 
 use crate::controls::EventControls;
 use crate::lookat_camera::Camera;
-use crate::transformations::{scale, transform};
+use crate::transformations::{scale, translate};
 use crate::gltf_file_loader::GLTFLoader;
 use crate::{constants::*, rasterizer::Rasterizer};
 use crate::projection::projection;
@@ -43,7 +43,7 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, s
         //objects[0].0 = rotate(&objects[0].0, PI, 'x');
         objects[0].0 = scale(&objects[0].0, 30.);
         //objects[0].0 = rotate(&objects[0].0, i as f32 * PI / 180., 'y');
-        //objects[0].0 = translate(&objects[0].0, [0., -300., 0.]);
+        objects[0].0 = translate(&objects[0].0, [0., -100., 0.]);
         //objects[0].0 = rotate(&objects[0].0, -i * PI / 180.0, 'z');
 
 
@@ -57,31 +57,21 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, s
 
         // TODO comprendre la rotation de la caméra
 
-        // TODO A REVOIR
-
         let angle = i as f32 * PI / 180.;
 
-        let rot_matrix = [
-            [angle.cos(), 0., angle.sin(), 0.],
-            [0., 1., 0. , 0.],
-            [-angle.sin(), 0., angle.cos(), 0.],
-            [0., 0., 0., 1.]
-        ];
-        
-        let cam_pos = [angle.cos(), 0., angle.sin()];
-
-        objects[0].0 = transform(&objects[0].0, rot_matrix);
-
-        let cam_matrix = Camera::place(
-            cam_pos, // from
+        let mut camera_manager = Camera::place(
+            [0., 0., 3.], // from
             [0., 0., 0.], // to
-            [0., 1., 0.]  // random_up
+            [0., -1., 0.]  // random_up
         );
-        
+
+        camera_manager.rotate_y(angle, 3.);
+
         // ***************************
 
+
         // projection
-        projection(&mut objects[0], cam_matrix);
+        projection(&mut objects[0], camera_manager.get_cam_matrix());
 
         // colorisation
         Rasterizer::draw(&objects[0].0, &objects[0].1, &objects[0].2, canvas, &player_event).await;

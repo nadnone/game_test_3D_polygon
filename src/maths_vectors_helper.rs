@@ -130,7 +130,7 @@ pub fn mat4_multiply_vec4(mat4: [[f32; 4]; 4], vector: [f32; 4]) -> [f32; 4]
         for j in 0..4 {
 
                 // https://mbernste.github.io/posts/matrix_vector_mult/
-                rslt[j] += mat4[i][j] * vector[j];
+                rslt[i] += mat4[i][j] * vector[j];
         }
     }
 
@@ -148,7 +148,7 @@ pub fn mat3_multiply_vec3(mat4: [[f32; 3]; 3], vector: [f32; 3]) -> [f32; 3]
         for j in 0..3 {
 
                 // https://mbernste.github.io/posts/matrix_vector_mult/
-                rslt[j] += mat4[i][j] * vector[j];
+                rslt[j] += mat4[i][j] * vector[i];
         }
     }
 

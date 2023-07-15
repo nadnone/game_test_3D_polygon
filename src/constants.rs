@@ -13,4 +13,4 @@ pub const PI: f32 = 3.141592653589793;
 pub const FOV: f32 = 68.0 * PI / 180.;
 
 pub const MOUSE_SENSIVITY: f32 = 10.;
-pub const WALK_SENSIVITY: f32 = 0.1;
+pub const WALK_SENSIVITY: f32 = 1.;

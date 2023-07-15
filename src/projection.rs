@@ -18,9 +18,9 @@ pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), view
 
     for i in 0..data.0.len() {
 
-        let point = data.0[i]; // une coordonnnées d'un triangle [x,y,z]
+        let mut point = data.0[i]; // une coordonnnées d'un triangle [x,y,z]
 
-        // matrice de projection
+        // matrice de projection (matrice d'identité)
         let mut m_proj = [
             [0., 0., 0., 0.],
             [0., 0., 0., 0.],
@@ -35,20 +35,19 @@ pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), view
         m_proj[3][3] = (-zfar * znear) / (zfar - znear);
         m_proj[3][2] = 1.0;
 
+        // division par w à faire avant la multiplication matricielle (merci ChatGPT)
+        if point[3] != 0.
+        {
+            point[0] /= point[3];   // x / w
+            point[1] /= point[3];   // y / w
+            point[2] /= point[3];   // z / w
+        }
 
         // application de la caméra
         let cam_proj = multiply_matrix4( m_proj, view_matrix);
         
         // multiplication avec les coordonnées
-        let mut rslt = mat4_multiply_vec4(cam_proj, point);
-
-        // projection
-        if rslt[3] != 0. 
-        {
-            rslt[0] /= rslt[3];   // x / w
-            rslt[1] /= rslt[3];   // y / w
-            rslt[2] /= rslt[3];   // z / w
-        }
+        let rslt = mat4_multiply_vec4(cam_proj, point);
 
 
         data.0[i] = rslt;
