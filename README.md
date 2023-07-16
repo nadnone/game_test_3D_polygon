@@ -40,11 +40,14 @@
 - [ ] ~~Using GPU instead of CPU~~
 - [ ] Moving through the world
     - [x] X axis and Z axis
-    - [ ] rotate camera
+    - [x] rotate camera
     - [ ] move with rotated camera
 ----------------------
+| Character with camera Y axis move around the object |
+| ----------- |
+| <img height="300" width="300" src="./demos/camera_move_around.gif"> |
 
-| Character with camera move ! |
+| Character with camera move (bad conception) |
 | ----------- |
 | <img height="300" width="300" src="./demos/character_slide.gif"> |
 
