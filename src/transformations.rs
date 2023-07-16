@@ -123,7 +123,7 @@ pub fn transform(a: &Vec<[f32; 4]>, transform_matrix: [[f32; 4]; 4]) -> Vec<[f32
             for j in 0..4 {
                 
                 // multiplication mat4 sur vec4
-                m_out[el][i] += transform_matrix[i][j] * a[el][j];
+                m_out[el][i] += transform_matrix[i][j] * a[el][i];
             }
         }
 
