@@ -1,4 +1,4 @@
-use crate::maths_vectors_helper::{multiply_matrix, multiply_matrix4, mat4_multiply_vec4};
+use crate::maths_vectors_helper::multiply_matrix;
 
 pub fn rotate(a: &Vec<[f32; 4]>, angle: f32, axe: char) -> Vec<[f32; 4]>
 {

@@ -1,5 +1,7 @@
 # Rust 3D game test engine (Learning)
 
+### This is only a program for learning, this is not be made to run a "real" game
+
 1. ~~Work only with wavefront obj files~~
 2. Doesn't use directly OpenGL, Vulkan or others 3D libraries
 3. Without textures
@@ -17,6 +19,8 @@
         - [x] ~~Texture Coordinates~~
         - [ ] ~~Understand how to match both~~
 
+- [ ] Find or craft a better 3D model
+
 - [ ] Load gltf/gltb files
     - [x] ~~use easy_gltb~~
     - [x] use an other lib that support animations
@@ -26,10 +30,10 @@
 - [x] Understand the translation transformation
 - [x] Make rotations
 
-- [ ] Lightning
-    - [ ] Enhance my lightning
+- [x] Lightning
+    - [x] Enhance my lightning
         - [x] diffuse 
-        - [ ] Specular
+        - [x] Specular
     - [x] ~~Textures~~
         - [x] Draw texture on cube
         - [ ] ~~Draw it correctly~~

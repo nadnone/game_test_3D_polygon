@@ -1,4 +1,4 @@
-use crate::maths_vectors_helper::{normaliser, soustraction_vectors, produit_vectoriel, produit_scalair};
+use crate::maths_vectors_helper::{normaliser, soustr_vec, produit_vectoriel, produit_scalair};
 
 
 pub struct Camera {
@@ -25,7 +25,7 @@ impl Camera {
         
         */
 
-        let forward = normaliser(soustraction_vectors(from, to));
+        let forward = normaliser(soustr_vec(from, to));
         let right = normaliser(produit_vectoriel(random_up, forward));
         let new_up = normaliser(produit_vectoriel(forward, right));
 
@@ -59,7 +59,7 @@ impl Camera {
             dist * angle.sin()
         ];
 
-        let forward = normaliser(soustraction_vectors(eye, self.target));
+        let forward = normaliser(soustr_vec(eye, self.target));
         let right = normaliser(produit_vectoriel(self.up, forward));
         let new_up = normaliser(produit_vectoriel(forward, right));
 
@@ -78,6 +78,10 @@ impl Camera {
 
     }
 
+    pub fn get_cam_pos(&self) -> [f32; 3]
+    {
+        return self.eye;
+    }
 
     pub fn get_cam_matrix(&self) -> [[f32; 4]; 4]
     {

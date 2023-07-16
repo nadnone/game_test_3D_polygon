@@ -1,4 +1,4 @@
-pub fn soustraction_vectors(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
+pub fn soustr_vec(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
 {
 
     let mut res: [f32; 3] = [0.0, 0.0, 0.0];
@@ -11,7 +11,8 @@ pub fn soustraction_vectors(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
     return res;
 }
 
-pub fn _addition_vectors(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
+
+pub fn add_vec(a: [f32; 3], b: [f32; 3]) -> [f32; 3]
 {
 
     let mut res: [f32; 3] = [0.0, 0.0, 0.0];
@@ -45,7 +46,7 @@ pub fn norme(a: [f32; 3]) -> f32
 
 pub fn normaliser(a: [f32; 3]) -> [f32; 3]
 {
-    return scale(a, 1.0/norme(a));
+    return scale(a, 1.0/ norme(a));
 }
 
 

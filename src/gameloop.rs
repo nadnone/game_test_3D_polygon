@@ -74,7 +74,7 @@ pub async fn gameloop(canvas: &mut Canvas<Window>, event_pump: &mut EventPump, s
         projection(&mut objects[0], camera_manager.get_cam_matrix());
 
         // colorisation
-        Rasterizer::draw(&objects[0].0, &objects[0].1, &objects[0].2, canvas, &player_event).await;
+        Rasterizer::draw(&objects[0].0, &objects[0].1, &objects[0].2, canvas, &camera_manager).await;
 
 
       
