@@ -18,9 +18,9 @@ pub fn projection(data: &mut (Vec<[f32; 4]>, Vec<[f32; 3]>, Vec<[f32; 3]>), view
 
     for i in 0..data.0.len() {
 
-        let mut point = data.0[i]; // une coordonnnées d'un triangle [x,y,z]
+        let mut point = data.0[i]; // une coordonnnées d'un point de triangle [x,y,z]
 
-        // matrice de projection (matrice d'identité)
+        // matrice de projection
         let mut m_proj = [
             [0., 0., 0., 0.],
             [0., 0., 0., 0.],
