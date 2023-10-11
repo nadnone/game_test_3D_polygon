@@ -47,7 +47,7 @@
     - [x] rotate camera
     - [ ] move with rotated camera
 ----------------------
-| Character with camera Y axis move around the object |
+| Character with camera moving around the object |
 | ----------- |
 | <img height="300" width="300" src="./demos/camera_move_around.gif"> |
 
