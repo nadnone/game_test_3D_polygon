@@ -1,6 +1,6 @@
 # Rust 3D game test engine (Learning)
 
-### This is only a program for learning, this is not be made to run a "real" game
+### This is only a program for learning, this is not made to run a "real" game
 
 1. ~~Work only with wavefront obj files~~
 2. Doesn't use directly OpenGL, Vulkan or others 3D libraries
